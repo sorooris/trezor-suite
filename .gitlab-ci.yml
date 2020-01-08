@@ -17,6 +17,7 @@ stages:
     - misc
 
 before_script:
+  - pwd
   - echo $HOME
   - ls $HOME 
 
