@@ -27,6 +27,10 @@ include:
     - ci/packages/suite-desktop.yml
     - ci/packages/suite-native.yml
 
+before_script:
+    - echo $CI_PROJECT_DIR
+    - ls $CI_PROJECT_DIR
+
 lint:
     stage: lint, types and unit tests
     dependencies:
