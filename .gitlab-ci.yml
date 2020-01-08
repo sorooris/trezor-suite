@@ -18,6 +18,7 @@ stages:
 
 before_script:
   - pwd
+  - printenv
   - echo $HOME
   - ls $HOME 
 
