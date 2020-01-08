@@ -29,7 +29,7 @@ include:
 before_script:
     - export HOME=/cache/${CI_COMMIT_REF_SLUG}
     - mkdir -p $HOME
-    - mv -f ${CI_PROJECT_DIR}/* $HOME/
+    - rsync -a ${CI_PROJECT_DIR}/* $HOME/
     - cd $HOME
 
 lint:
