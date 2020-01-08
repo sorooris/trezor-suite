@@ -7,7 +7,6 @@ variables:
     PACKAGE_PATH_SUITE_DESKTOP: packages/suite-desktop
     PACKAGE_PATH_SUITE_NATIVE: packages/suite-native
     PACKAGE_PATH_SUITE_WEB: packages/suite-web
-    CI_PROJECT_DIR: /cache/${CI_COMMIT_REF_SLUG}
 
 stages:
     - setup environment
