@@ -28,8 +28,10 @@ include:
     - ci/packages/suite-native.yml
 
 before_script:
-    - echo $CI_PROJECT_DIR
-    - ls $CI_PROJECT_DIR
+    - export HOME=/cache/${CI_COMMIT_REF_SLUG}
+    - mkdir -p $HOME
+    - mv ${CI_PROJECT_DIR}/* $HOME/
+    - cd $HOME
 
 lint:
     stage: lint, types and unit tests
