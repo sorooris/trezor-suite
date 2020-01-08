@@ -16,6 +16,10 @@ stages:
     - integration testing
     - misc
 
+before_script:
+  - echo $HOME
+  - ls $HOME 
+
 include:
     - ci/environment.yml
     - ci/install-and-build.yml
