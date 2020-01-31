@@ -1,33 +1,6 @@
 # ! DO NOT set latest here USE custom hash !
 image: registry.gitlab.com/satoshilabs/trezor/trezor-suite/base:54b807728aa0417641c00dfab1aa6c0ea77bcfdb
 
-cache:
-    untracked: true
-    policy: pull
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-        # modules
-        - node_modules/
-        - packages/blockchain-link/node_modules/
-        - packages/components/node_modules/
-        - packages/components-v2/node_modules/
-        - packages/components-storybook-v2/node_modules/
-        - packages/rollout/node_modules/
-        - packages/suite/node_modules/
-        - packages/suite-web/node_modules/
-        - packages/suite-desktop/node_modules/
-        - packages/suite-native/node_modules/
-        - packages/suite-storage/node_modules/
-        - packages/translations-manager/node_modules/
-        - packages/integration-tests/node_modules/
-        # libs
-        - packages/components/lib
-        - packages/components-v2/lib
-        - packages/blockchain-link/lib
-        - packages/rollout/lib
-        - packages/suite-storage/lib
-        - packages/translations-manager/lib
-
 variables:
     DEV_SERVER_URL: 'https://suite.corp.sldev.cz'
     PACKAGE_PATH_SUITE_DESKTOP: packages/suite-desktop
@@ -66,3 +39,49 @@ include:
     - ci/packages/suite-web.yml
     - ci/packages/suite-desktop.yml
     - ci/packages/suite-native.yml
+
+before_script:
+    # creating cache directories for modules
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components-storybook-v2/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/connect-explorer/node_modules/ packages/connect-explorer/node_modules
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-web/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-desktop/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-native/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/node_modules/
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/
+    # creating cache directories for libs
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components/lib
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/lib
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/lib
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/lib
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/lib
+    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/lib
+    # pointing modules to cache
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/node_modules/ node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/node_modules/ packages/blockchain-link/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components/node_modules/ packages/components/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/node_modules/ packages/components-v2/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components-storybook-v2/node_modules/ packages/components-storybook-v2/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/connect-explorer/node_modules/ packages/connect-explorer/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/node_modules/ packages/rollout/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite/node_modules/ packages/suite/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-web/node_modules/ packages/suite-web/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-desktop/node_modules/ packages/suite-desktop/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-native/node_modules/ packages/suite-native/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/node_modules/ packages/suite-storage/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/node_modules/ packages/translations-manager/node_modules
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/ packages/integration-tests/node_modules
+    # pointing modules do libs
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components/lib packages/components/lib
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/lib packages/components-v2/lib
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/lib packages/blockchain-link/lib
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/lib packages/rollout/lib
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/lib packages/suite-storage/lib
+    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/lib packages/translations-manager/lib
