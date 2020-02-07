@@ -5,7 +5,7 @@ install and build:
         - yarn run build:libs
     cache:
         untracked: true
-        policy: push
+        policy: pull-push
         key: ${CI_COMMIT_REF_SLUG}
         paths:
             # libs
