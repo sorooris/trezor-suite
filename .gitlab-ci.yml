@@ -7,6 +7,18 @@ variables:
     PACKAGE_PATH_SUITE_NATIVE: packages/suite-native
     PACKAGE_PATH_SUITE_WEB: packages/suite-web
 
+cache:
+    policy: pull
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        # libs
+        - packages/components/lib
+        - packages/components-v2/lib
+        - packages/blockchain-link/lib
+        - packages/rollout/lib
+        - packages/suite-storage/lib
+        - packages/translations-manager/lib
+
 stages:
     - setup environment
     - lint, types, unit tests
@@ -56,13 +68,6 @@ before_script:
     - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/node_modules/
     - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/node_modules/
     - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/
-    # creating cache directories for libs
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components/lib
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/lib
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/lib
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/lib
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/lib
-    - mkdir -p /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/lib
     # pointing modules to cache
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/node_modules/ node_modules
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/node_modules/ packages/blockchain-link/node_modules
@@ -78,10 +83,3 @@ before_script:
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/node_modules/ packages/suite-storage/node_modules
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/node_modules/ packages/translations-manager/node_modules
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/ packages/integration-tests/node_modules
-    # pointing modules do libs
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components/lib packages/components/lib
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/components-v2/lib packages/components-v2/lib
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/blockchain-link/lib packages/blockchain-link/lib
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/rollout/lib packages/rollout/lib
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/lib packages/suite-storage/lib
-    - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/lib packages/translations-manager/lib
