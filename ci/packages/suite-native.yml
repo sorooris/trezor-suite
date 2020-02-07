@@ -3,7 +3,8 @@ suite-native build android:
     stage: build
     script:
         - yarn cache clean
-        - yarn build:libs
+        - yarn start --reset-cache
+        - yarn
         - yarn workspace @trezor/suite-data copy-static-files
         - yarn workspace @trezor/suite-native build:android
         - mv $PACKAGE_PATH_SUITE_NATIVE/android/app/build/outputs/apk/release/app-release.apk .
