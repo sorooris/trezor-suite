@@ -7,18 +7,6 @@ variables:
     PACKAGE_PATH_SUITE_NATIVE: packages/suite-native
     PACKAGE_PATH_SUITE_WEB: packages/suite-web
 
-cache:
-    policy: pull
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-        # libs
-        - packages/components/lib
-        - packages/components-v2/lib
-        - packages/blockchain-link/lib
-        - packages/rollout/lib
-        - packages/suite-storage/lib
-        - packages/translations-manager/lib
-
 stages:
     - setup environment
     - lint, types, unit tests
@@ -83,3 +71,14 @@ before_script:
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/suite-storage/node_modules/ packages/suite-storage/node_modules
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/translations-manager/node_modules/ packages/translations-manager/node_modules
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/ packages/integration-tests/node_modules
+
+cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        # libs
+        - packages/components/lib
+        - packages/components-v2/lib
+        - packages/blockchain-link/lib
+        - packages/rollout/lib
+        - packages/suite-storage/lib
+        - packages/translations-manager/lib

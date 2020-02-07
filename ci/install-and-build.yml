@@ -3,14 +3,3 @@ install and build:
     script:
         - yarn install --pure-lockfile --cache-folder .yarn --modules-folder /cache/${CI_COMMIT_REF_SLUG}/node_modules/
         - yarn run build:libs
-    cache:
-        policy: push
-        key: ${CI_COMMIT_REF_SLUG}
-        paths:
-            # libs
-            - packages/components/lib
-            - packages/components-v2/lib
-            - packages/blockchain-link/lib
-            - packages/rollout/lib
-            - packages/suite-storage/lib
-            - packages/translations-manager/lib
