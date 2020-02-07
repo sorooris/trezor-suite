@@ -3,7 +3,6 @@ suite-native build android:
     stage: build
     script:
         - yarn cache clean
-        - yarn start --reset-cache
         - yarn
         - yarn workspace @trezor/suite-data copy-static-files
         - yarn workspace @trezor/suite-native build:android
