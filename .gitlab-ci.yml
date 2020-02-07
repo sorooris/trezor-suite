@@ -73,6 +73,8 @@ before_script:
     - ln -s /cache/${CI_COMMIT_REF_SLUG}/packages/integration-tests/node_modules/ packages/integration-tests/node_modules
 
 cache:
+    untracked: true
+    policy: pull
     key: ${CI_COMMIT_REF_SLUG}
     paths:
         # libs
