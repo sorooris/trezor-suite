@@ -25,5 +25,6 @@ module.exports = {
         '^.+\\.js$': 'babel-jest',
         '^.+\\.ts$': 'ts-jest',
     },
-    testTimeout: 10000,
+    testTimeout: 30000,
+    // timers: 'fake',
 };
