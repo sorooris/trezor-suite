@@ -22,7 +22,7 @@ workers.forEach(instance => {
             await server.close();
         });
 
-        it.only('Handle connection timeout', async () => {
+        it('Handle connection timeout', async () => {
             jest.setTimeout(10000);
             try {
                 blockchain.settings.server = ['wss://google.com:11111', 'wss://google.com:22222'];
