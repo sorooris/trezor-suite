@@ -23,7 +23,7 @@ workers.forEach(instance => {
         });
 
         it('Handle connection timeout', async () => {
-            jest.setTimeout(10000);
+            jest.setTimeout(20000);
             try {
                 blockchain.settings.server = ['wss://google.com:11111', 'wss://google.com:22222'];
                 blockchain.settings.timeout = 2500;
@@ -35,7 +35,7 @@ workers.forEach(instance => {
         });
 
         it('Handle message timeout', async () => {
-            jest.setTimeout(10000);
+            jest.setTimeout(20000);
             server.setFixtures([
                 {
                     method: instance.name === 'ripple' ? 'server_info' : 'getInfo',
@@ -55,7 +55,7 @@ workers.forEach(instance => {
             // the only way how to test it is to check if server fixture was called
             // method defined in this fixture is the same which is used in ping function inside the worker
             // server should remove this fixture once called
-            jest.setTimeout(10000);
+            jest.setTimeout(20000);
             server.setFixtures([
                 {
                     method: instance.name === 'ripple' ? 'server_info' : 'getBlockHash',
