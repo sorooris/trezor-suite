@@ -2,7 +2,7 @@ import createServer from '../websocket';
 import workers from './worker';
 import BlockchainLink from '../../src';
 
-workers.forEach(instance => {
+workers.splice(0, 1).forEach(instance => {
     describe(`Connection ${instance.name}`, () => {
         let server: any;
         let blockchain: BlockchainLink;
@@ -44,7 +44,7 @@ workers.forEach(instance => {
                 },
             ]);
             try {
-                blockchain.settings.timeout = 2500;
+                blockchain.settings.timeout = 500;
                 await blockchain.getInfo();
             } catch (error) {
                 expect(error.code).toEqual('blockchain_link/websocket_timeout');
