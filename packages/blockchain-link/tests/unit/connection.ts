@@ -2,12 +2,15 @@ import createServer from '../websocket';
 import workers from './worker';
 import BlockchainLink from '../../src';
 
-workers.splice(0, 1).forEach(instance => {
+workers.forEach(instance => {
     describe(`Connection ${instance.name}`, () => {
         let server: any;
         let blockchain: BlockchainLink;
 
         beforeEach(async () => {
+            if (server) {
+                await server.close();
+            }
             server = await createServer(instance.name);
             blockchain = new BlockchainLink({
                 ...instance,
