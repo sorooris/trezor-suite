@@ -6,11 +6,17 @@
 
 const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin');
 const webpack = require('@cypress/webpack-preprocessor');
+const path = require('path');
+const { spawn } = require('child_process');
 
-const { Controller } = require('./websocket-client');
+const { Controller } = require('./python/websocket-client');
 const CONSTANTS = require('../constants');
 
 const controller = new Controller({ url: 'ws://localhost:9001/' });
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports = on => {
     // make ts possible start
