@@ -92,25 +92,23 @@ async function runTests() {
                     trashAssetsBeforeRuns: false,
                 },
                 configFile: false,
-                
             });
+
             console.log('----totalFailed', totalFailed);
             console.log('----totalRetries', totalRetries);
             console.log('----retries', retries);
 
-
             if (totalFailed === 0) {
-
                 break;
             }
 
             failedTests += totalFailed;
             retries++;
             totalRetries++;
-
         }
         break;
     }
+
     console.log('totalRetries', totalRetries);
     process.exit(failedTests);
 }
