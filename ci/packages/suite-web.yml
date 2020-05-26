@@ -37,7 +37,8 @@ suite-web test integration google-chrome:
         - export CYPRESS_baseUrl=${DEV_SERVER_URL}/suite-web/${CI_BUILD_REF_NAME}
         - export BROWSER=chrome
         # - yarn concurrently --success first --kill-others "cd ./docker/trezor-user-env/controller && python3 ./main.py" "cypress run --browser $BROWSER --project ./packages/integration-tests/projects/suite-web"
-        - ./docker/docker-suite-test.sh
+        # - ./docker/docker-suite-test.sh
+        - yarn concurrently --success first --kill-others "cd ./docker/trezor-user-env/controller && python3 ./main.py" "node ./packages/integration-tests/projects/suite-web/run_tests.js --browser $BROWSER --project ./packages/integration-tests/projects/suite-web"
     artifacts:
         expire_in: 7 days
         when: always
