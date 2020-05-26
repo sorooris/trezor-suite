@@ -45,8 +45,9 @@
 #             - /builds/satoshilabs/trezor/trezor-suite/packages/integration-tests/projects/suite-web/videos
 #     dependencies: []
 #     # retry:
-#     #    max: 2mv packages/suite-desktop/build-electron/"${DESKTOP_APP_NAME}"-*.AppImage ./build/static
-rome-beta:
+#     #    max: 2
+
+suite-web test integration google-chrome-beta:
     only:
       - schedules
     #allow_failure: true
@@ -80,8 +81,8 @@ suite-web deploy staging:
         name: ${CI_BUILD_REF_NAME}-staging
         url: ${STAGING_SERVER_URL}
     before_script: []
-    # when:
-    #     manual
+    when:
+        manual
     script:
         - assetPrefix=/${STAGING_SERVER_URL}/wallet yarn workspace @trezor/suite-web build
         - assetPrefix=/${STAGING_SERVER_URL} yarn workspace @trezor/landing-page build
