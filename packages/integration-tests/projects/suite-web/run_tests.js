@@ -58,7 +58,7 @@ async function runTests() {
     // const mochawesomeReportDir = 'results/mochawesome-report';
     // const {invert, group, stage} = argv;
     let failedTests = 0;
-
+    let totalRetries = 0;
 
     for (let i = 0; i < finalTestFiles.length; i++) {
         const testFile = finalTestFiles[i];
@@ -69,30 +69,49 @@ async function runTests() {
 
         const spec = __dirname + testFile.substr(testFile.lastIndexOf('/tests'));
 
-        const {totalFailed, ...result } = await cypress.run({
-            browser,
-            // headless,
-            headed: true,
-            spec,
-            config: {
-                baseUrl: 'http://localhost:3000',
-                supportFile: `${__dirname}/support/index.ts`,
-                pluginsFile: `${__dirname}/plugins/index.js`,
-                defaultCommandTimeout: 60000,
-                screenshotsFolder: `${__dirname}/screenshots`,
-                integrationFolder: `${__dirname}/tests`,
-                videosFolder: `${__dirname}/videos`,
-                video: true,
-                chromeWebSecurity: false,
-                trashAssetsBeforeRuns: false,
-            },
-            configFile: false,
-            
-        });
-        console.log('result', result);
-        failedTests += totalFailed;
-    }
+        let retry = true;
+        const maxRetries = 2;
+        let retries = 0;
 
+        while(retry && retries <= maxRetries) {
+            const {totalFailed, ...result } = await cypress.run({
+                browser,
+                // headless,
+                headed: true,
+                spec,
+                config: {
+                    baseUrl: 'http://localhost:3000',
+                    supportFile: `${__dirname}/support/index.ts`,
+                    pluginsFile: `${__dirname}/plugins/index.js`,
+                    defaultCommandTimeout: 60000,
+                    screenshotsFolder: `${__dirname}/screenshots`,
+                    integrationFolder: `${__dirname}/tests`,
+                    videosFolder: `${__dirname}/videos`,
+                    video: true,
+                    chromeWebSecurity: false,
+                    trashAssetsBeforeRuns: false,
+                },
+                configFile: false,
+                
+            });
+            console.log('----totalFailed', totalFailed);
+            console.log('----totalRetries', totalRetries);
+            console.log('----retries', retries);
+
+
+            if (totalFailed === 0) {
+
+                break;
+            }
+
+            failedTests += totalFailed;
+            retries++;
+            totalRetries++;
+
+        }
+        break;
+    }
+    console.log('totalRetries', totalRetries);
     process.exit(failedTests);
 }
 
